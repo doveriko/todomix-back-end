@@ -9,7 +9,8 @@ const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 require('dotenv').config();
 
-const auth = require('./routes/auth');
+const authRouter = require('./routes/authRouter');
+const listRouter = require('./routes/listRouter')
 
 
 // MONGOOSE CONNECTION
@@ -42,6 +43,14 @@ app.use(
 //   next();
 // });
 
+// MIDDLEWARE
+app.use(logger('dev'));
+app.use(bodyParser.json());
+// For forms:
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
 // SESSION MIDDLEWARE
 app.use(
   session({
@@ -58,17 +67,10 @@ app.use(
   }),
 );
 
-// MIDDLEWARE
-app.use(logger('dev'));
-app.use(bodyParser.json());
-// For forms:
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
 
 // ROUTER MIDDLEWARE
-app.use('/auth', auth);
+app.use('/auth', authRouter);
+app.use('/lists', listRouter);
 
 
 // 404 

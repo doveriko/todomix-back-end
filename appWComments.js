@@ -9,8 +9,9 @@ const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 require('dotenv').config();
 
-const auth = require('./routes/auth');
-
+const auth = require('./routes/authRouter');
+const list = require('./routes/listRouter');
+// Aquí el resto de rutas
 
 // MONGOOSE CONNECTION
 mongoose
