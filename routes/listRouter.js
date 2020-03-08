@@ -47,10 +47,10 @@ listRouter.get("/:id", (req, res, next) => {
 // POST /lists  Create and save a new list
 listRouter.post("/", isLoggedIn, (req, res, next) => {
 
-    const  {name, tasks, status, private } = req.body;
+    const  {name, tasks, status, isPrivate } = req.body;
     const { _id } = req.session.currentUser;
 
-    List.create( {name, tasks, status, private, creator: _id } )
+    List.create( {name, tasks, status, isPrivate, creator: _id } )
     .then( (createdList) => {
         res
         .status(201)
@@ -69,9 +69,9 @@ listRouter.post("/", isLoggedIn, (req, res, next) => {
 listRouter.put("/:id", (req, res, next) => {
 
     const {id} = req.params;
-    const {name, tasks, status, private, contributorsIdArr} = req.body
+    const {name, tasks, status, isPrivate, contributorsIdArr} = req.body
 
-    List.findByIdAndUpdate(id, {name, tasks, status, private, contributors: contributorsIdArr}, {new: true})
+    List.findByIdAndUpdate(id, {name, tasks, status, isPrivate, contributors: contributorsIdArr}, {new: true})
     .then( (updatedList) => {
         res.status(200).json( updatedList );
     })

@@ -10,7 +10,7 @@ const listSchema = new Schema({
       }
     ],
     status: { type: String, enum: ["To-do","Doing","Done"], default: "To-do" },
-    private: {type: Boolean, required: true, default: true},
+    isPrivate: {type: Boolean, required: true, default: true},
     creator: {type: Schema.Types.ObjectId,ref:'User'},
     contributors: [ {type: Schema.Types.ObjectId,ref:'User'} ]
   },
