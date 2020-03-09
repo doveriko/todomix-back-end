@@ -58,6 +58,7 @@ authRouter.post('/login', isNotLoggedIn, validationLogin, async (req, res, next)
     //return;	 			TODO - remove from the notes
     } 
     else {
+      console.log("Password wrong")
       next(createError(401));	// Unauthorized
     }
   } 
