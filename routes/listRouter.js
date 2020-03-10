@@ -9,11 +9,15 @@ const List = require("../models/list");
 const {isLoggedIn} = require("../helpers/middlewares");
 
 // GET /lists - Show al lists
-listRouter.get("/", (req, res, next) => {
+listRouter.get("/", isLoggedIn, (req, res, next) => {
 
-    List.find()
+    const { _id } = req.session.currentUser;
+    
+    console.log("BANANA")
+    List.find({creator: _id })
     .populate('creator contributors')
     .then( (allLists) => {
+        console.log(allLists)
         res
         .status(200)
         .json(allLists)
